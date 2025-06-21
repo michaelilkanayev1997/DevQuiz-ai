@@ -29,6 +29,7 @@ def generate_challenge_with_ai(difficulty: str) -> Dict[str, Any]:
     Make sure the options are plausible but with only one clearly correct answer.
     """
     try:
+        print(f"[DEBUG] Generating challenge for difficulty: {difficulty}")
         response = client.chat.completions.create(
             model="gpt-3.5-turbo-0125",
             messages=[
@@ -38,8 +39,14 @@ def generate_challenge_with_ai(difficulty: str) -> Dict[str, Any]:
             response_format={"type": "json_object"},
             temperature=0.7
         )
+        print("[DEBUG] Raw response received:")
+        print(response)
+
         content = response.choices[0].message.content
         challenge_data = json.loads(content)
+
+        print("[DEBUG] Parsed JSON content:")
+        print(challenge_data)
 
         required_fields = ["title", "options", "correct_answer_id", "explanation"]
         for field in required_fields:

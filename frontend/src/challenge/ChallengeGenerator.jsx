@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import MCQChallenge from "./MCQChallenge";
+import { useApi } from "../utils/api";
 
 const ChallengeGenerator = () => {
   const [challenge, setChallenge] = useState(null);
@@ -8,11 +9,45 @@ const ChallengeGenerator = () => {
   const [difficulty, setDifficulty] = useState("easy");
   const [quota, setQuota] = useState(null);
 
-  const fetchQuota = async () => {};
+  const { makeRequest } = useApi();
 
-  const generateChallenge = async () => {};
+  useEffect(() => {
+    fetchQuota();
+  }, []);
 
-  const getNextResetTime = () => {};
+  const fetchQuota = async () => {
+    try {
+      const data = await makeRequest("quota");
+      setQuota(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const generateChallenge = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await makeRequest("generate-challenge", {
+        method: "POST",
+        body: JSON.stringify({ difficulty }),
+      });
+      setChallenge(data);
+      fetchQuota();
+    } catch (err) {
+      setError(err.message || "Failed to generate challenge.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getNextResetTime = () => {
+    if (!quota?.last_reset_data) return null;
+    const resetDate = new Date(quota.last_reset_data);
+    resetDate.setHours(resetDate.getHours() + 24);
+    return resetDate;
+  };
 
   return (
     <div className="challenge-container">
@@ -20,7 +55,9 @@ const ChallengeGenerator = () => {
 
       <div className="quota-display">
         <p>Challenges remaining today: {quota?.quota_remaining || 0}</p>
-        {quota?.quota_remaining === 0 && <p>Next reset: {0}</p>}
+        {quota?.quota_remaining === 0 && (
+          <p>Next reset: {getNextResetTime()?.toLocaleString()}</p>
+        )}
       </div>
       <div className="difficulty-selector">
         <label htmlFor="difficulty">Select Difficulty</label>
@@ -38,7 +75,7 @@ const ChallengeGenerator = () => {
 
       <button
         onClick={generateChallenge}
-        disabled={isLoading || quota?.quota_remaining === 0}
+        disabled={false}
         className="generate-button"
       >
         {isLoading ? "Generating..." : "Generate Challenge"}
