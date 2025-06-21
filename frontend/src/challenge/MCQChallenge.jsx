@@ -1,10 +1,11 @@
-import { useState } from "react";
-
-const MCQChallenge = ({ challenge, showExplanation = false }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [shouldShowExplanation, setShouldShowExplanation] =
-    useState(showExplanation);
-
+const MCQChallenge = ({
+  challenge,
+  selectedOption,
+  setSelectedOption,
+  shouldShowExplanation,
+  setShouldShowExplanation,
+  isLoading,
+}) => {
   const options =
     typeof challenge.options === "string"
       ? JSON.parse(challenge.options)
@@ -28,6 +29,22 @@ const MCQChallenge = ({ challenge, showExplanation = false }) => {
 
     return "option";
   };
+
+  if (isLoading) {
+    return (
+      <div
+        className="challenge-display"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "300px",
+        }}
+      >
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="challenge-display">
@@ -55,5 +72,4 @@ const MCQChallenge = ({ challenge, showExplanation = false }) => {
     </div>
   );
 };
-
 export default MCQChallenge;

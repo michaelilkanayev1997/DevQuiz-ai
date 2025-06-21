@@ -8,6 +8,8 @@ const ChallengeGenerator = () => {
   const [error, setError] = useState(null);
   const [difficulty, setDifficulty] = useState("easy");
   const [quota, setQuota] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [shouldShowExplanation, setShouldShowExplanation] = useState(false);
 
   const { makeRequest } = useApi();
 
@@ -34,6 +36,8 @@ const ChallengeGenerator = () => {
         body: JSON.stringify({ difficulty }),
       });
       setChallenge(data);
+      setSelectedOption(null); // clear answer
+      setShouldShowExplanation(false); // hide explanation
       fetchQuota();
     } catch (err) {
       setError(err.message || "Failed to generate challenge.");
@@ -75,7 +79,7 @@ const ChallengeGenerator = () => {
 
       <button
         onClick={generateChallenge}
-        disabled={false}
+        disabled={isLoading || quota?.quota_remaining === 0}
         className="generate-button"
       >
         {isLoading ? "Generating..." : "Generate Challenge"}
@@ -87,7 +91,16 @@ const ChallengeGenerator = () => {
         </div>
       )}
 
-      {challenge && <MCQChallenge challenge={challenge} />}
+      {challenge && (
+        <MCQChallenge
+          challenge={challenge}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          shouldShowExplanation={shouldShowExplanation}
+          setShouldShowExplanation={setShouldShowExplanation}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 };

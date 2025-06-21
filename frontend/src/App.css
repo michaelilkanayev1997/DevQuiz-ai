@@ -309,3 +309,19 @@ body {
   color: #0369a1;
   font-size: 0.875rem;
 }
+
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid #ccc;
+  border-top: 8px solid #6c63ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
