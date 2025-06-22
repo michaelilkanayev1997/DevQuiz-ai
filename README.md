@@ -4,6 +4,43 @@ A full-stack **AI-powered coding quiz generator** built with **FastAPI**, **Reac
 
 This app allows authenticated users to generate and solve multiple-choice code challenges dynamically.
 
+
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td align="center" valign="top">
+      <img src="ReadMe_Images/screenshot1.png" alt="Login/Signup" style="max-width: 70%; border-radius: 8px;" />
+      <p><strong>Login / Signup</strong></p>
+    </td>
+    <td align="center" valign="top">
+      <img src="ReadMe_Images/screenshot2.png" alt="Profile Edit" style="max-width: 70%; border-radius: 8px;" />
+      <p><strong>User Name</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src="ReadMe_Images/screenshot3.png" alt="Homepage" style="max-width: 70%; border-radius: 8px;" />
+      <p><strong>Generate Challenge</strong></p>
+    </td>
+    <td align="center" valign="top">
+      <img src="ReadMe_Images/screenshot4.png" alt="DM Chat" style="max-width: 70%; border-radius: 8px;" />
+      <p><strong>Generate Challenge</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src="ReadMe_Images/screenshot5.png" alt="Create Channel" style="max-width: 70%; border-radius: 8px;" />
+      <p><strong>Challenge</strong></p>
+    </td>
+    <td align="center" valign="top">
+      <img src="ReadMe_Images/screenshot6.png" alt="Group Channel" style="max-width: 70%; border-radius: 8px;" />
+      <p><strong>History</strong></p>
+    </td>
+  </tr>
+</table>
+
+
 ---
 
 ## 🚀 Features
