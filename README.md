@@ -79,7 +79,7 @@ cd DevQuiz-ai
 
 cd backend
 uv pip install -r pyproject.toml
-uvicorn main:app --reload
+uv run server.py 
 
 cd ../client
 npm install
